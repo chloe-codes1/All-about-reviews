@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+{% load bootstrap4 %}
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Reviews</title>
+     <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+       <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    {% bootstrap_css %}
+</head>
+<body>
+
+  <nav class="navbar navbar-expand-md navbar-light fixed-top bg-dark border border-left-0 border-right-0 border-top-0 border-white py-1 mb-5">
+  <a class="navbar-brand" href="/community/"><strong class="text-white">Movie Reviews</strong></a>
+  <button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-dark "><i class="fas fa-bars" style="color:#fff; font-size:25px;"></i></span>
+  </button>
+  <div class="collapse navbar-collapse " id="navbarTogglerDemo03">
+    <ul class="navbar-nav ml-auto mt-2 mt-md-0 p-2">
+      <li class="nav-item active mx-2">
+        <a class="nav-link text-white" href="{% url 'community:index' %}" style='font-size:22px;'>Reviews<span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item mx-2">
+        <a class="nav-link text-white" href="{% url 'community:create' %}" style='font-size:22px;'>Write a review </a>
+      </li>
+    </ul>
+  </div>
+  <form class="form-inline" action="{% url 'community:search' %}" method="POST">
+  {% csrf_token %}
+    <input class="form-control mr-sm-2" name="keyword"type="search" placeholder="Search movies" aria-label="Search">
+    <button class="btn btn-primary my-2 my-sm-0" type="submit">Search</button>
+  </form>
+</nav>
+
+<div class="card w-75 m-auto py-3">
+  <div class="card-header text-center mt-5 bg-light">
+    <h2 class="pt-5 pb-5">Movie reviews and ratings</h2>
+  </div>
+  <div class="card-body">
+
+  {% block content %}
+
+  {% endblock %}
+
+    </div>
+</div>
+
+
+<footer>
+<div class="footer-copyright text-center py-3 ">© 2020 Copyright:
+    <a href="https://github.com/chloe-codes1" class="text-decoration-none"> <i class="fab fa-github ml-1"></i> chloe-codes1</a>
+  </div>
+</footer>
+    
+    {% bootstrap_javascript jquery='full' %}
+</body>
+</html>

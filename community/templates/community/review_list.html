@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load bootstrap4 %}
+
+{% block content %}
+
+
+{% if ranks != None%}
+<div class="d-flex justify-content-between">
+<div>
+  <h3 class="mt-3 mb-4 pl-2">Top Rated Movies</h3>
+  <p>Sorted by All About Reviews Rating Descending </p>
+</div>
+<p><a class="btn btn-outline-primary mt-4 mr-2" href="{% url 'community:create' %}" style='font-size:22px;'>Write a review </a></p>
+
+</div>
+  <table class="table">
+  <thead class="thead-light">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Movie Title</th>
+      <th scope="col">Average Rate</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for rank in ranks %}
+  <tr>
+      <td>{{ forloop.counter }}</td>
+      <td>{{rank.movie_title}}</td>
+      <td>{{rank.avg_rate}}</td>
+  </tr> 
+   {% endfor %}
+  </tbody>
+</table>
+
+{% elif request.resolver_match.url_name != 'search' %}
+<div class="text-right">
+<p><a class="btn btn-outline-primary mt-4 mr-2" href="{% url 'community:create' %}" style='font-size:22px;'>Write a review </a></p>
+</div>
+{% endif %}
+
+{% if request.resolver_match.url_name == 'search'%}
+<div class="d-flex justify-content-between">
+  <h3 class="mt-3 mb-4 pl-2">Search Result for "{{keyword}}"</h3>
+  <p class="mt-3 mb-3 pr-3"><a href="{% url 'community:index' %}"><strong>Back to list</strong></a></p>
+{% else%}
+<div class="pt-3">
+  <h3 class="mt-3 mb-4 pl-2">All reviews</h3>
+{% endif %}
+  
+</div>
+{% for review in reviews%}
+
+<a class="text-decoration-none" href="{% url 'community:detail' review.pk %}" data-toggle="tooltip" data-placement="top" title="See Details">
+<div class="hover card text-white my-2 w-100"  onmouseover="this.style.backgroundColor='#868e96'" onmouseout="this.style.backgroundColor='#343A40'" style="background-color: #343A40">
+  <div class="card-header">
+    <div class=" d-flex justify-content-between mb-2">
+    <span><h5 class="d-inline">{{review.title}}</h5><span class="badge badge-warning mx-2">Rating {{review.rank}}</span></span> <p class="mb-0 pt-1">{{review.created_at|date:'Y-m-d H:i'}}</p>
+    </div>
+    <p><strong>Movie Title: {{review.movie_title}}</strong></p>
+  </div>
+  
+  <div class="card-body">
+    <p class="card-title">{{review.content|truncatechars_html:30}}</p>
+  </div>
+</div>
+<a/>
+{% empty %}
+<h4 class="mt-4 text-center">No posts yet!</h4>
+<p class="text-center ">Jot down any musings or thoughts.</p>
+
+{% endfor %}
+
+{% endblock %}
