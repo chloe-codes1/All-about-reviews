@@ -10,5 +10,4 @@ urlpatterns = [
     path('<int:pk>/update/',views.update, name='update'),
     path('<int:pk>/delete/',views.delete, name='delete'),
     path('search/', views.search, name='search'),
-    path('rating/', views.rating, name='rating')
 ]

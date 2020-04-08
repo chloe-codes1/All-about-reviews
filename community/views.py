@@ -62,7 +62,3 @@ def search(request):
         'keyword': keyword,
     }
     return render(request, 'community/review_list.html', context)
-
-# 평점 순 정렬
-def rating(request):
-    pass
