@@ -1,5 +1,7 @@
 # Movie Reviews
 
+> A simple movie review app with Django
+
 <br>
 
 <br>
