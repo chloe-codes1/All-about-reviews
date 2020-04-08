@@ -98,5 +98,8 @@
   - 추가했다!
 
 - [x] Deployment
-  - 지난 프로젝트에서 `PythonAnywhere`에 배포 해봤으므로 이번엔 다른 web hosting site에 배포해봐야겠다!
+  - 지난 프로젝트에서 `PythonAnywhere`에 배포 해봤으므로 이번엔 다른 web hosting site에 <s> 배포해봐야겠다! </s>
   - `MS Azure` 에 배포했다!
+  
+  
+  <br>
