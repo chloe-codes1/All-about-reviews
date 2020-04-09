@@ -32,7 +32,7 @@
 
 - #### `.raw()`
 
-  - Django에서는 **SQL query**를 어떻게 작성할지 궁금해서 찾아보니 `.raw`라는 method가 있었다
+  - Django에서는 **SQL query**를 어떻게 작성할지 궁금해서 찾아보니 `.raw()`라는 method가 있었다
 
   - *Raw query must include the primary key* 라고 error가 나서 찾아보고 select문에 `rowid as id` 를 추가하여 해결했다
 
@@ -80,8 +80,10 @@
 
 - `MS Azure` 에 `Fabric` 으로 배포했다!
   - 처음 **Azure** 써보면서 많이 헤맸다. 
-  - `Azure Virtual Machine` 만들고 배포한 과정을 **Github TIL repo**에 정리해서 올려야겠다.
-  - Deployed in [HERE](https://bit.ly/Movie-reviews) !
+  - `Azure Virtual Machine` 만들고 배포한 과정을 **Github TIL repo**에 정리해서 <s>올려야겠다.</s>
+  - 정리해서 올렸다!
+    - [TIL 보러가기](https://github.com/chloe-codes1/TIL/blob/master/Server/Deployment/Deploying_a_Django_project_on_Microsoft_Azure.md) 
+    - Deployed in [HERE](https://bit.ly/Movie-reviews) !
 
 
 
@@ -107,7 +109,9 @@
 
 <br>
 
-## Deploying a Django project on Microsoft Azure
+`+`
+
+# Deploying a Django project on Microsoft Azure
 
 <br>
 
@@ -123,8 +127,8 @@
 
 #### 1-2. Add Virtual Machine with `+Add` button
 
-- I chose `Ubuntu Sever 18.04 LTS` because I personally like **Ubuntu** and I'm currently using it.
-- Other options are totally up-to our app's condition
+- I chose `Ubuntu Sever 18.04 LTS` because I personally like **Ubuntu** and I'm currently using `Ubuntu 18.04.4 LTS`.
+- Other options are totally up-to your app condition
 
 <br>
 
@@ -162,7 +166,7 @@ import json
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# deploy.json파일을 불러와 envs변수에 저장합니다.
+# deploy.json파일을 불러와 envs변수에 저장하긔
 with open(os.path.join(PROJECT_DIR, "deploy.json")) as f:
     envs = json.loads(f.read())
 
@@ -283,6 +287,7 @@ def _update_virtualenv():
     run('%s/bin/pip install "django==3.0.4"' % (
         virtualenv_folder
     ))
+    # 내 app INSTALLED_APPS에 bootstrap4가 있어서 (bootstrap4를 사용해서) VM에도 설치하지 않으면 error가 남!
     run('%s/bin/pip install "django-bootstrap4" ' %(
         virtualenv_folder
     ))
@@ -339,7 +344,7 @@ def _restart_apache2():
 
 <br>
 
-> deploy.json
+> deploy.json - edit it!
 
 ```json
 {
@@ -354,7 +359,7 @@ def _restart_apache2():
 ```
 
 - I had to modify `fabfile.py` several times because of the errors
-- Check the error message & google it!
+- Check the error messages & google it!
   - It could take some time, but I'm pretty sure that is worth it
 
 <br>
@@ -375,7 +380,7 @@ $ fab new_server
 $ fab deploy
 ```
 
-- Fetch latest code on your github repo and migrate db
+- **Fetch** latest code on your github repo and **migrate** db
 
 <br>
 

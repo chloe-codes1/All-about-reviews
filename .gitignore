@@ -6,5 +6,7 @@ myvenv
 db.sqlite3
 /static
 .DS_Store
+deploy.json
+fabfile.py
 *.swp
 *.swo
