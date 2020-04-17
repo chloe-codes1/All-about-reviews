@@ -19,11 +19,28 @@
   </button>
   <div class="collapse navbar-collapse " id="navbarTogglerDemo03">
     <ul class="navbar-nav ml-auto mt-2 mt-md-0 p-2">
+
+    {% if user.is_authenticated %}
+      <li class="nav-item dropdown mx-2">
+        <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style='font-size:22px;'>Hello, {{user}}!</a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <button class="dropdown-item"  style='font-size:22px;' data-toggle="modal" data-target="#profileModal">Profile</button>
+          <button class="dropdown-item"  style='font-size:22px;'><a href="{% url 'accounts:signout' %}" class="text-decoration-none">Log-out</a></button>
+        </div>
+      </li> 
+       <li class="nav-item mx-2">
+        <a class="nav-link text-white" href="{% url 'community:create' %}" style='font-size:22px;'>Write a Review </a>
+      </li>
+      {% else %}
+      <li class="nav-item active mx-2">
+        <a class="nav-link text-white" href="{% url 'accounts:signin' %}" style='font-size:22px;'>Log-in<span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item active mx-2">
+        <a class="nav-link text-white" href="{% url 'accounts:signup' %}" style='font-size:22px;'>Join<span class="sr-only">(current)</span></a>
+      </li>
+      {% endif %}
       <li class="nav-item active mx-2">
         <a class="nav-link text-white" href="{% url 'community:index' %}" style='font-size:22px;'>Reviews<span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item mx-2">
-        <a class="nav-link text-white" href="{% url 'community:create' %}" style='font-size:22px;'>Write a review </a>
       </li>
     </ul>
   </div>
@@ -33,6 +50,36 @@
     <button class="btn btn-primary my-2 my-sm-0" type="submit">Search</button>
   </form>
 </nav>
+
+
+
+<!-- Modal -->
+<div class="modal fade bd-example-modal-lg" id="profileModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-lg " role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title" id="exampleModalLongTitle">{{user.username}}'s Profile</h1>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p class="mt-4">First name: <strong>{{user.first_name}}</strong></p>
+        <p>Last name: <strong>{{user.last_name}}</strong></p>
+        <p>Email: <strong>{{user.email}}</strong></p>
+      </div>
+      <div class="modal-footer">
+         {% if request.user == user %}
+          <a href="{% url 'accounts:update' %}" class="btn btn-warning text-white">Edit Profile</a>
+          <form action="{% url 'accounts:delete'%}" method="POST">
+            {% csrf_token %}
+          <button class="btn btn-danger"> Delete account</button>
+          </form>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
 
 <div class="card w-75 m-auto py-3">
   <div class="card-header text-center mt-5 bg-light">

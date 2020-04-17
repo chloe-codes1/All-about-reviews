@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1 class="mb-5">User List</h1>
+
+{% for user in users %}
+
+    <p>#{{user.pk}} - {{user.username}}</p>
+    <a href="{% url 'accounts:detail' user.pk %}">See details</a>
+    
+{% endfor %}
+
+{% endblock  %}

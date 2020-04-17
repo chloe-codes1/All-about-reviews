@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% block content %}
+
+<h1 class="mb-4">Join Us Today!</h1>
+
+<form action="" method="POST">
+    {% csrf_token %}
+    {% bootstrap_form form%}
+    <button class="btn btn-success">Join</button>
+    <a href="{% url 'accounts:signin' %}" class="text-success ml-3">Log-In</a>
+</form>
+{% endblock %}

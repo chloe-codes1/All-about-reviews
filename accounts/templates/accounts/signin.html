@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1 class="mb-4">Sign In</h1>
+
+<form action="" method="POST">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button class="btn btn-success">Log-In</button>
+    <a href="{% url 'accounts:signup' %}" class="text-success ml-3">Join us!</a>
+</form>
+{% endblock %}

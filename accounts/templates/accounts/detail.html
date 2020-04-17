@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<div class="card" style="width: 18rem;">
+<h1>{{user.username}}'s Profile</h1>
+  <img class="card-img-top" src="..." alt="Card image cap">
+  <div class="card-body">
+    <p class="mt-4">First name: <strong>{{user.first_name}}</strong></p>
+    <p>Last name: <strong>{{user.last_name}}</strong></p>
+    <p>Email: <strong>{{user.email}}</strong></p>
+  </div>
+</div>
+
+{% if request.user == user %}
+
+    <a href="{% url 'accounts:update' %}">Edit Profile</a>
+    <form action="{% url 'accounts:delete'%}" method="POST">
+        {% csrf_token %}
+        <button class="btn btn-danger"> Delete account</button>
+    </form>
+{% endif %}
+{% endblock  %}
