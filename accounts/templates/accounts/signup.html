@@ -8,6 +8,6 @@
     {% csrf_token %}
     {% bootstrap_form form%}
     <button class="btn btn-success">Join</button>
-    <a href="{% url 'accounts:signin' %}" class="text-success ml-3">Log-In</a>
+    <a href="{% url 'accounts:login' %}" class="text-success ml-3">Log-In</a>
 </form>
 {% endblock %}

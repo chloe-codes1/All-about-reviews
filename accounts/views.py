@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import get_user_model, login, logout
+from django.contrib.auth import get_user_model, login as auth_login, logout as auth_logout
 # from django.contrib.auth.models import User 
 # # -> User class는 내부에 정의되어 있으므로 get_user_model method로 호출한다!
 from .forms import CustomUserChangeForm
@@ -40,7 +40,7 @@ def detail(request, pk):
     }
     return render(request, 'accounts/detail.html', context)
 
-def signin(request):
+def login(request):
     if request.user.is_authenticated:
         return redirect('community:index')
     if request.method == 'POST':
@@ -49,7 +49,7 @@ def signin(request):
         # 검증
         if form.is_valid():
             # 검증 완료 시 로그인
-            login(request, form.get_user())
+            auth_login(request, form.get_user())
             
             # [단축평가]
             # or 일 때, 앞에가 False면 뒤에도 검사!
@@ -64,8 +64,8 @@ def signin(request):
 
 @login_required
 # annotation으로 하지 않고, 조건식으로 직접 작성해도 된다~!
-def signout(request):
-    logout(request)
+def logout(request):
+    auth_logout(request)
     return redirect('community:index')
 
 @require_POST
